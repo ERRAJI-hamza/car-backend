@@ -17,6 +17,7 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface FleetMapper {
 
+    @Mapping(target = "id",source = "id")
     @Mapping(target = "nameEts",source = "nameEts")
     @Mapping(target = "refDossier",source = "refDossier")
     @Mapping(target = "nameGestionner",source = "nameGestionner")
@@ -53,6 +54,6 @@ public interface FleetMapper {
 
     @Named("mapOnedriver")
     default String mapOnedriver(final Driver driver){
-        return driver.getName()+"-"+driver.getPrenom();
+       return  (driver != null) ? driver.getName() + "-" + driver.getPrenom() : null;
     }
 }

@@ -86,22 +86,24 @@ public class ServiceManagerFleet {
         List<AllFleetDto> allFleetDtos = new ArrayList<>();
 
         for (CarDto carDto : carDtos) {
-            List<CarCriteriaDto> carCriteriaList = getCarCriteriabyCar(carDto.getVin()); // Éviter plusieurs appels
-            allFleetDtos.add(
-                    AllFleetDto.builder()
-                            .driverName(carDto.getDriverName())
-                            .vin(carDto.getVin())
-                            .energieWork(getEnergieWork(carCriteriaList))
-                            .energieHome(getEnergieHome(carCriteriaList))
-                            .energiePublic(getEnergiePublic(carCriteriaList))
-                            .energieTotal(getEnergieTotal(carCriteriaList))
-                            .build()
-            );
+            if (carDto != null){
+                List<CarCriteriaDto> carCriteriaList = getCarCriteriabyCar(carDto.getVin());
+                allFleetDtos.add(
+                        AllFleetDto.builder()
+                                .driverName(carDto.getDriverName())
+                                .vin(carDto.getVin())
+                                .energieWork(getEnergieWork(carCriteriaList))
+                                .energieHome(getEnergieHome(carCriteriaList))
+                                .energiePublic(getEnergiePublic(carCriteriaList))
+                                .energieTotal(getEnergieTotal(carCriteriaList))
+                                .distance(getTotalDistance(carCriteriaList))
+                                .build()
+                );
+            }
         }
 
         return allFleetDtos;
     }
-
 
 
     public List<AllFleetDto> getAllFleets(Long managerFleetId){
@@ -155,6 +157,16 @@ public class ServiceManagerFleet {
                 .reduce(0, Integer::sum);
 
         return totalEnergy + "Kwh";
+    }
+
+    private String getTotalDistance(List<CarCriteriaDto> carCriterias) {
+        int totalDistance = carCriterias.stream()
+                .map(CarCriteriaDto::getDistance) // Récupère la distance sous forme de String
+                .filter(distance -> distance != null && distance.matches("\\d+")) // Vérifie que c'est bien un nombre
+                .map(Integer::parseInt) // Convertit en entier
+                .reduce(0, Integer::sum); // Fait la somme
+
+        return totalDistance + "km"; // Retourne sous forme de String avec "km"
     }
 
 

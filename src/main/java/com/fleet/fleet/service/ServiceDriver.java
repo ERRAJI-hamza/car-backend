@@ -25,8 +25,8 @@ public class ServiceDriver {
     private final RepoManagerFleet repoManagerFleet;
     private final FleetMapper fleetMapper;
 
-    public DriverDto postDriver(Driver driver) {
-        ManagerFleet managerFleet = repoManagerFleet.findById(driver.getManagerFleet().getId()).orElseThrow(() -> new RuntimeException("Pas de manager trouvé"));
+    public DriverDto postDriver(DriverDto driver,Long managerFleetId) {
+        ManagerFleet managerFleet = repoManagerFleet.findById(managerFleetId).orElseThrow(() -> new RuntimeException("Pas de manager trouvé"));
 
         Driver driverX = Driver.builder()
                 .managerFleet(managerFleet)

@@ -22,10 +22,13 @@ public class ControllerDriver {
     private Logger logger = Logger.getLogger(ControllerManagerFleet.class.getName());
     private final ServiceDriver serviceDriver;
 
-    @PostMapping(value="/ajouter-driver", consumes = MediaType.APPLICATION_JSON_VALUE)
-        public ResponseEntity<DriverDto> postDriver(@RequestBody Driver driver) {
+    @PostMapping(value="/ajouter-driver/{managerFleetId}", consumes = MediaType.APPLICATION_JSON_VALUE)
+        public ResponseEntity<DriverDto> postDriver(
+                @RequestBody DriverDto driver,
+                @PathVariable("managerFleetId") Long managerFleetId
+    ) {
         logger.info("ajouter driver : " + driver);
-        return new ResponseEntity<>(serviceDriver.postDriver(driver), HttpStatus.CREATED);
+        return new ResponseEntity<>(serviceDriver.postDriver(driver,managerFleetId), HttpStatus.CREATED);
     }
 
 }

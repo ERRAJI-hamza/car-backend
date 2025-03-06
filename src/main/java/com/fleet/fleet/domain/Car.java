@@ -23,7 +23,7 @@ public class Car {
 
     private String marque;
 
-    private String owner;
+    private String driverName;
 
     @OneToOne
     @JoinColumn(name = "driver_id", referencedColumnName = "idDriver")

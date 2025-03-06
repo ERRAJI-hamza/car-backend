@@ -16,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ManagerFleetDto {
-
+    private Long id;
     private String nameEts;
     private String refDossier;
     private String address;

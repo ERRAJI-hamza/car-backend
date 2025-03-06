@@ -4,6 +4,7 @@ package com.fleet.fleet.controller;
 import com.fleet.fleet.domain.Car;
 import com.fleet.fleet.domain.Driver;
 import com.fleet.fleet.dto.CarDto;
+import com.fleet.fleet.dto.DriverDto;
 import com.fleet.fleet.service.ServiceCar;
 import com.fleet.fleet.service.ServiceDriver;
 import lombok.RequiredArgsConstructor;
@@ -29,11 +30,10 @@ public class ControllerCar{
         return new ResponseEntity<>(serviceCar.postCar(car), HttpStatus.CREATED);
     }
 
-    @PostMapping(value="/driver-to-car", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<CarDto> postDriverToCar(@RequestBody Driver driver,
-                                                  @RequestParam("idManagerFleet") Long idManagerFleet,
-                                                  @RequestParam("vin") String vin) {
-        return new ResponseEntity<>(serviceCar.postDriverToCar(driver,idManagerFleet,vin), HttpStatus.CREATED);
+    @GetMapping(value="/driver-to-car")
+    public ResponseEntity<CarDto> postDriverToCar( @RequestParam("idDriver") Long idDriver,
+                                                   @RequestParam("vin") String vin) {
+        return new ResponseEntity<>(serviceCar.postDriverToCar(idDriver,vin), HttpStatus.CREATED);
     }
 
 }

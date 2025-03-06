@@ -17,4 +17,5 @@ public class AllFleetDto {
     private String energieHome;
     private String energiePublic;
     private String energieTotal;
+    private String distance;
 }

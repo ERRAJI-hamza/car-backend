@@ -5,6 +5,7 @@ import com.fleet.fleet.domain.Car;
 import com.fleet.fleet.domain.Driver;
 import com.fleet.fleet.domain.ManagerFleet;
 import com.fleet.fleet.dto.CarDto;
+import com.fleet.fleet.dto.DriverDto;
 import com.fleet.fleet.mapper.FleetMapper;
 import com.fleet.fleet.repo.RepoCar;
 import com.fleet.fleet.repo.RepoDriver;
@@ -34,7 +35,7 @@ public class ServiceCar {
         return fleetMapper.map(savedCar);
     }
 
-    public CarDto postDriverToCar(Driver driver, Long idManagerFleet,String vin) {
+    public CarDto postDriverToCarX(DriverDto driver, Long idManagerFleet, String vin) {
         ManagerFleet managerFleet = repoManagerFleet.findById(idManagerFleet).orElseThrow(() -> new RuntimeException("Pas de manager trouvé"));
 
         Driver driverX = Driver.builder()
@@ -48,6 +49,15 @@ public class ServiceCar {
 
         Car car = repoCar.findById(vin).orElseThrow(() -> new RuntimeException("Voiture avec VIN " + vin + " non trouvée"));;
         car.setDriver(driverSave);
+        return fleetMapper.map(repoCar.save(car));
+    }
+
+    public CarDto postDriverToCar(Long idDriver, String vin) {
+
+        Driver driverX = repoDriver.findById(idDriver).orElseThrow(() -> new RuntimeException("Pas de driver trouvé"));
+
+        Car car = repoCar.findById(vin).orElseThrow(() -> new RuntimeException("Voiture avec VIN " + vin + " non trouvée"));;
+        car.setDriver(driverX);
         return fleetMapper.map(repoCar.save(car));
     }
 }

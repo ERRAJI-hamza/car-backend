@@ -3,6 +3,8 @@ package com.fleet.fleet.service;
 import com.fleet.fleet.domain.Car;
 import com.fleet.fleet.domain.CarCriteria;
 import com.fleet.fleet.domain.Driver;
+import com.fleet.fleet.dto.CarCriteriaDto;
+import com.fleet.fleet.mapper.FleetMapper;
 import com.fleet.fleet.repo.RepoCar;
 import com.fleet.fleet.repo.RepoCarCriteria;
 import lombok.RequiredArgsConstructor;
@@ -21,20 +23,23 @@ public class ServiceCarCriteria {
 
     private final RepoCar repoCar;
 
+    private final FleetMapper fleetMapper;
+
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-    public CarCriteria postCarCriteria(CarCriteria carCriteria) {
-        Car car = repoCar.findById(carCriteria.getCar().getVin()).orElseThrow(() -> new RuntimeException("Pas de manager trouvé"));
+    public CarCriteriaDto postCarCriteria(CarCriteriaDto carCriteria,String vin) {
+        Car car = repoCar.findById(vin).orElseThrow(() -> new RuntimeException("Pas de car trouvé"));
 
         CarCriteria XcarCriteria = CarCriteria.builder()
                                     .car(car)
                                     .idCarCriteria(carCriteria.getIdCarCriteria())
                                     .location(carCriteria.getLocation())
                                     .energieCharge(carCriteria.getEnergieCharge())
+                                    .distance(carCriteria.getDistance())
                                     .date(LocalDate.now().format(formatter))
                                     .build();
 
-        return repoCarCriteria.save(XcarCriteria);
+        return fleetMapper.map(repoCarCriteria.save(XcarCriteria));
     }
 
 }
