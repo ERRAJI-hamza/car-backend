@@ -25,4 +25,6 @@ public class DriverDto {
     private String prenom;
 
     private String address;
+
+    private String rib;
 }

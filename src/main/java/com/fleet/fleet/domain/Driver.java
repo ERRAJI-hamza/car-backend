@@ -24,6 +24,8 @@ public class Driver {
 
     private String address;
 
+    private String rib;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "manager_fleet_id")
     private ManagerFleet managerFleet;

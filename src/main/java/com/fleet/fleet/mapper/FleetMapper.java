@@ -32,10 +32,14 @@ public interface FleetMapper {
     @Mapping(target = "name",source = "name")
     @Mapping(target = "prenom",source = "prenom")
     @Mapping(target = "address",source = "address")
+    @Mapping(target = "rib",source = "rib")
     DriverDto map(final Driver driver);
 
     @Mapping(target = "vin",source = "vin")
     @Mapping(target = "marque",source = "marque")
+    @Mapping(target = "modele",source = "modele")
+    @Mapping(target = "immatriculation",source = "immatriculation")
+    @Mapping(target = "dateImmatriculation",source = "dateImmatriculation")
     @Mapping(target = "driverName",source = "driver",qualifiedByName="mapOnedriver")
     CarDto map(final Car car);
 

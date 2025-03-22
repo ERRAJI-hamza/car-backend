@@ -116,7 +116,7 @@ public class ServiceManagerFleet {
         return allFleetDtos;
     }
 
-    private String getEnergieWork(List<CarCriteriaDto> carCriterias){
+    public String getEnergieWork(List<CarCriteriaDto> carCriterias){
         int totalEnergy = carCriterias.stream()
                 .filter(car -> "Work".equals(car.getLocation()))
                 .map(car -> car.getEnergieCharge())
@@ -127,7 +127,7 @@ public class ServiceManagerFleet {
         return totalEnergy + "Kwh";
     }
 
-    private String getEnergieHome(List<CarCriteriaDto> carCriterias){
+    public String getEnergieHome(List<CarCriteriaDto> carCriterias){
         int totalEnergy = carCriterias.stream()
                 .filter(car -> "Home".equals(car.getLocation()))
                 .map(car -> car.getEnergieCharge())
@@ -138,7 +138,7 @@ public class ServiceManagerFleet {
         return totalEnergy + "Kwh";
     }
 
-    private String getEnergiePublic(List<CarCriteriaDto> carCriterias){
+    public String getEnergiePublic(List<CarCriteriaDto> carCriterias){
         int totalEnergy = carCriterias.stream()
                 .filter(car -> "Public".equals(car.getLocation()))
                 .map(car -> car.getEnergieCharge())
@@ -149,7 +149,7 @@ public class ServiceManagerFleet {
         return totalEnergy + "Kwh";
     }
 
-    private String getEnergieTotal(List<CarCriteriaDto> carCriterias){
+    public String getEnergieTotal(List<CarCriteriaDto> carCriterias){
         int totalEnergy = carCriterias.stream()
                 .map(car -> car.getEnergieCharge())
                 .filter(energie -> energie.matches("\\d+Kwh"))
@@ -159,7 +159,7 @@ public class ServiceManagerFleet {
         return totalEnergy + "Kwh";
     }
 
-    private String getTotalDistance(List<CarCriteriaDto> carCriterias) {
+    public String getTotalDistance(List<CarCriteriaDto> carCriterias) {
         int totalDistance = carCriterias.stream()
                 .map(CarCriteriaDto::getDistance) // Récupère la distance sous forme de String
                 .filter(distance -> distance != null && distance.matches("\\d+")) // Vérifie que c'est bien un nombre

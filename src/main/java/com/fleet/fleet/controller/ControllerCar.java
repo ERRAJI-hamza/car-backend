@@ -3,8 +3,10 @@ package com.fleet.fleet.controller;
 
 import com.fleet.fleet.domain.Car;
 import com.fleet.fleet.domain.Driver;
+import com.fleet.fleet.dto.AllFleetDto;
 import com.fleet.fleet.dto.CarDto;
 import com.fleet.fleet.dto.DriverDto;
+import com.fleet.fleet.dto.SalarieDto;
 import com.fleet.fleet.service.ServiceCar;
 import com.fleet.fleet.service.ServiceDriver;
 import lombok.RequiredArgsConstructor;
@@ -30,10 +32,18 @@ public class ControllerCar{
         return new ResponseEntity<>(serviceCar.postCar(car), HttpStatus.CREATED);
     }
 
-    @GetMapping(value="/driver-to-car")
-    public ResponseEntity<CarDto> postDriverToCar( @RequestParam("idDriver") Long idDriver,
-                                                   @RequestParam("vin") String vin) {
-        return new ResponseEntity<>(serviceCar.postDriverToCar(idDriver,vin), HttpStatus.CREATED);
+    @PostMapping(value="/driver-to-car")
+    public ResponseEntity<AllFleetDto> postDriverToCar(
+            @RequestBody DriverDto driver,
+            @RequestParam("idManagerFleet") Long idManagerFleet,
+            @RequestParam("vin") String vin) {
+        return new ResponseEntity<>(serviceCar.postDriverToCar(driver,idManagerFleet,vin), HttpStatus.CREATED);
+    }
+
+    @GetMapping(path="/get-salarie/{vin}")
+    public ResponseEntity<SalarieDto> getSalarie(@PathVariable("vin") String vin) {
+        logger.info("get managers fleet: " + vin);
+        return new ResponseEntity<>(serviceCar.getSalarie(vin), HttpStatus.OK);
     }
 
 }

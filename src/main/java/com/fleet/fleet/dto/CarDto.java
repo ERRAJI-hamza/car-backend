@@ -16,4 +16,10 @@ public class CarDto {
     private String marque;
 
     private String driverName ;
+
+    private String modele;
+
+    private String immatriculation;
+
+    private String dateImmatriculation;
 }

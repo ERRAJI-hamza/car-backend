@@ -18,6 +18,7 @@ import java.util.List;
 @Entity
 @Table(name="manager")
 public class Manager {
+    //To Do rename manager to compte
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

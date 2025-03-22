@@ -25,6 +25,12 @@ public class Car {
 
     private String driverName;
 
+    private String modele;
+
+    private String immatriculation;
+
+    private String dateImmatriculation;
+
     @OneToOne
     @JoinColumn(name = "driver_id", referencedColumnName = "idDriver")
     private Driver driver;
